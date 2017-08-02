@@ -30,9 +30,8 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
         super.onCreate(savedInstanceState);
         context = this;
 
-        if (getLayoutId() > 0) {
-            bindEvent();
-        }
+        bindEvent();
+
         initData(savedInstanceState);
 
     }

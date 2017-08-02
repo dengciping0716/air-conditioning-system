@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
-import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.XDroidConf;
 import cn.droidlover.xdroidmvp.event.BusProvider;
 
@@ -28,8 +27,6 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
     protected LayoutInflater layoutInflater;
 
     private RxPermissions rxPermissions;
-
-    private Unbinder unbinder;
 
 
     @Nullable
