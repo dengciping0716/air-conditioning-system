@@ -14,7 +14,6 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.XDroidConf;
 import cn.droidlover.xdroidmvp.event.BusProvider;
-import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
 /**
  * Created by wanglei on 2016/12/29.
@@ -39,7 +38,6 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
         layoutInflater = inflater;
         if (rootView == null && getLayoutId() > 0) {
             rootView = inflater.inflate(getLayoutId(), null);
-            bindUI(rootView);
         } else {
             ViewGroup viewGroup = (ViewGroup) rootView.getParent();
             if (viewGroup != null) {
@@ -61,9 +59,9 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
         initData(savedInstanceState);
     }
 
+    @Deprecated
     @Override
     public void bindUI(View rootView) {
-        unbinder = KnifeKit.bind(this, rootView);
     }
 
     protected VDelegate getvDelegate() {

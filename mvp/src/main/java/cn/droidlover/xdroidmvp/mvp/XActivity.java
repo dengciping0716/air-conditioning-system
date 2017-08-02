@@ -9,10 +9,8 @@ import android.view.View;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.XDroidConf;
 import cn.droidlover.xdroidmvp.event.BusProvider;
-import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
 /**
  * Created by wanglei on 2016/12/29.
@@ -26,8 +24,6 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
 
     private RxPermissions rxPermissions;
 
-    private Unbinder unbinder;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,17 +31,16 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
         context = this;
 
         if (getLayoutId() > 0) {
-            setContentView(getLayoutId());
-            bindUI(null);
             bindEvent();
         }
         initData(savedInstanceState);
 
     }
 
+    @Deprecated
     @Override
     public void bindUI(View rootView) {
-        unbinder = KnifeKit.bind(this);
+
     }
 
     protected VDelegate getvDelegate() {
