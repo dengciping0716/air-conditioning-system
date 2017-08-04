@@ -43,7 +43,6 @@ public class LoginFragment extends RxAppCompatDialogFragment {
         // Required empty public constructor
     }
 
-
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         return fragment;
@@ -52,21 +51,17 @@ public class LoginFragment extends RxAppCompatDialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        UI.hideSystemUI(getActivity());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        DisplayMetrics displayMetrics = DisplayUtil.getDisplayMetrics(getContext());
-//        getDialog().getWindow().setLayout((int) Math.floor(displayMetrics.widthPixels * 0.6), (int) Math.floor(displayMetrics.heightPixels * 0.8));
+        DisplayMetrics displayMetrics = DisplayUtil.getDisplayMetrics(getContext());
+        getDialog().getWindow().setLayout((int) Math.floor(displayMetrics.widthPixels * 0.6), (int) Math.floor(displayMetrics.heightPixels * 0.8));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        getDialog().setTitle("账号登录");
 
         loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
 

@@ -11,7 +11,7 @@
         <!--和 colorAccent相反，正常状态下按钮的颜色 CheckBox，RadioButton，SwitchCompat等默认状态的颜-->
         <item name="colorControlNormal">@color/colorPrimary</item>
         <!--Button按钮正常状态颜色-->
-        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@android:color/white</item>
 

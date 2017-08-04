@@ -54,8 +54,8 @@ public class UserRepository {
     }
 
     private void cacheToken(UserBean userBean) {
-        DiskCache.getInstance(App.getContext()).put(KEY_TOKEN, userBean.getAccess_token(), userBean.getExpires_in() * 1000);
-        DiskCache.getInstance(App.getContext()).put(KEY_REFRESH_TOKEN, userBean.getRefresh_token(), 30 * 24 * 60 * 60 * 1000);
+        DiskCache.getInstance(App.getContext()).put(KEY_TOKEN, userBean.getAccess_token(), userBean.getExpires_in() * 1000l);
+        DiskCache.getInstance(App.getContext()).put(KEY_REFRESH_TOKEN, userBean.getRefresh_token(), 30 * 24 * 60 * 60 * 1000l);
     }
 
 }
