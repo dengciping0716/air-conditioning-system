@@ -12,7 +12,7 @@ ext {
             versionName      : '1.0.0',
 
             VSupportSdk      : '25.3.1',
-            VRetrofitSdk     : "2.2.0",
+            VRetrofitSdk     : "2.3.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1"
     ]
@@ -36,6 +36,7 @@ ext {
             "rxjava"                     : "io.reactivex.rxjava2:rxjava:2.0.1",
             "retrofit"                   : "com.squareup.retrofit2:retrofit:${android["VRetrofitSdk"]}",
             "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${android["VRetrofitSdk"]}",
+            "retrofit-converter-jackson" : "com.squareup.retrofit2:converter-jackson:${android["VRetrofitSdk"]}",
             "retrofit-adapter-rxjava"    : "com.squareup.retrofit2:adapter-rxjava2:${android["VRetrofitSdk"]}",
             "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${android["VOkhttp"]}",
             "okhttp3"                    : "com.squareup.okhttp3:okhttp:${android["VOkhttp"]}",

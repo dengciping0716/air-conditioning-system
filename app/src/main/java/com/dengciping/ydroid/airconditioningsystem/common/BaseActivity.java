@@ -1,5 +1,7 @@
 package com.dengciping.ydroid.airconditioningsystem.common;
 
+import android.view.MotionEvent;
+
 import com.dengciping.ydroid.airconditioningsystem.utils.UI;
 
 import cn.droidlover.xdroidmvp.mvp.XActivity;
@@ -25,5 +27,11 @@ public abstract class BaseActivity extends XActivity {
         if (hasFocus) {
             UI.hideSystemUI(this);
         }
+    }
+
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        UI.hideSystemUI(this);
+        return super.onGenericMotionEvent(event);
     }
 }

@@ -1,29 +1,24 @@
 package cn.droidlover.xdroidmvp.net;
 
-import org.reactivestreams.Publisher;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.kit.Kits;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by wanglei on 2016/12/24.
  */
 
 public class XApi {
+    public static String DefaultBaseUrl;
+
     private static NetProvider sProvider = null;
 
     private Map<String, NetProvider> providerMap = new HashMap<>();
@@ -50,6 +45,13 @@ public class XApi {
         return instance;
     }
 
+    public static void init(String baseUrl) {
+        DefaultBaseUrl = baseUrl;
+    }
+
+    public static <S> S get(Class<S> service) {
+        return getInstance().getRetrofit(DefaultBaseUrl, true).create(service);
+    }
 
     public static <S> S get(String baseUrl, Class<S> service) {
         return getInstance().getRetrofit(baseUrl, true).create(service);
@@ -86,7 +88,7 @@ public class XApi {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(getClient(baseUrl, provider))
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(JacksonConverterFactory.create());
         if (useRx) {
             builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         }
@@ -167,50 +169,5 @@ public class XApi {
         getInstance().retrofitMap.clear();
         getInstance().clientMap.clear();
     }
-
-    /**
-     * 线程切换
-     *
-     * @return
-     */
-    public static <T extends IModel> FlowableTransformer<T, T> getScheduler() {
-        return new FlowableTransformer<T, T>() {
-            @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
-                return upstream.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
-
-    /**
-     * 异常处理变换
-     *
-     * @return
-     */
-    public static <T extends IModel> FlowableTransformer<T, T> getApiTransformer() {
-
-        return new FlowableTransformer<T, T>() {
-            @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
-                return upstream.flatMap(new Function<T, Publisher<T>>() {
-                    @Override
-                    public Publisher<T> apply(T model) throws Exception {
-
-                        if (model == null || model.isNull()) {
-                            return Flowable.error(new NetError(model.getErrorMsg(), NetError.NoDataError));
-                        } else if (model.isAuthError()) {
-                            return Flowable.error(new NetError(model.getErrorMsg(), NetError.AuthError));
-                        } else if (model.isBizError()) {
-                            return Flowable.error(new NetError(model.getErrorMsg(), NetError.BusinessError));
-                        } else {
-                            return Flowable.just(model);
-                        }
-                    }
-                });
-            }
-        };
-    }
-
 
 }

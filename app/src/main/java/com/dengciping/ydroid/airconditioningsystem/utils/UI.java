@@ -27,4 +27,16 @@ public class UI {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
+
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static void showSystemUI(Activity activity) {
+        if (!Kits.Package.isSdkVerson(activity, Build.VERSION_CODES.HONEYCOMB)) return;
+
+        View decorView = activity.getWindow().getDecorView();
+
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    }
+
 }

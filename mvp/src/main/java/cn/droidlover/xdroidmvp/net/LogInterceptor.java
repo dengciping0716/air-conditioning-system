@@ -3,6 +3,7 @@ package cn.droidlover.xdroidmvp.net;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import cn.droidlover.xdroidmvp.log.XLog;
 import okhttp3.Headers;
@@ -24,8 +25,13 @@ public class LogInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        logRequest(request);
+
+        long t1 = System.nanoTime();
         Response response = chain.proceed(request);
+        long t2 = System.nanoTime();
+        XLog.d(TAG, String.format(Locale.getDefault(), "Received response for %s in %.1fms%n%s",
+                response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+
         return logResponse(response);
     }
 
@@ -45,7 +51,7 @@ public class LogInterceptor implements Interceptor {
                 MediaType mediaType = requestBody.contentType();
                 if (mediaType != null) {
                     if (isText(mediaType)) {
-                        XLog.d(TAG, "params : " + bodyToString(request));
+                        XLog.json(bodyToString(request));
                     } else {
                         XLog.d(TAG, "params : " + " maybe [file part] , too large too print , ignored!");
                     }

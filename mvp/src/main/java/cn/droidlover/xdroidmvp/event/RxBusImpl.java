@@ -45,6 +45,14 @@ public class RxBusImpl implements IBus {
         return bus.ofType(eventType).onBackpressureBuffer();
     }
 
+    /**
+     * 判断是否有订阅者
+     * @return
+     */
+    public boolean hasSubscribers() {
+        return bus.hasSubscribers();
+    }
+
     private static class Holder {
         private static final RxBusImpl instance = new RxBusImpl();
     }

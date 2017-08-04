@@ -60,4 +60,6 @@
 
 -include proguard-support-v7-appcompat.pro
 
+-include proguard-lambda.pro
+
 
