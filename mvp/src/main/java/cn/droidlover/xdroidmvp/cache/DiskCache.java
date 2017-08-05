@@ -36,7 +36,7 @@ public class DiskCache implements ICache {
             if (!cacheDir.exists()) {
                 cacheDir.mkdirs();
             }
-            cache = DiskLruCache.open(cacheDir, Kits.Package.getVersionCode(context), 1, 10 * 1024 * 1024);        //10M
+            cache = DiskLruCache.open(cacheDir, Kits.Package.getVersionCode(context), 1, 100 * 1024 * 1024);        //10M
         } catch (IOException e) {
             e.printStackTrace();
         }
