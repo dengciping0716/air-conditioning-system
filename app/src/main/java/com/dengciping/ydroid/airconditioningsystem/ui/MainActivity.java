@@ -6,8 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.dengciping.ydroid.airconditioningsystem.App;
 import com.dengciping.ydroid.airconditioningsystem.Bean.UserBean;
-import com.dengciping.ydroid.airconditioningsystem.Config;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.common.BaseActivity;
 import com.dengciping.ydroid.airconditioningsystem.data.netwark.UserRepository;
@@ -15,7 +15,6 @@ import com.dengciping.ydroid.airconditioningsystem.databinding.ActivityMainBindi
 
 import java.util.concurrent.TimeUnit;
 
-import cn.droidlover.xdroidmvp.cache.DiskCache;
 import cn.droidlover.xdroidmvp.event.BusProvider;
 import cn.droidlover.xdroidmvp.kit.Kits;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
@@ -38,7 +37,6 @@ public class MainActivity extends BaseActivity {
         viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewDataBinding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
-        viewDataBinding.tvUser.setText(Config.userName);
     }
 
     @Override
@@ -69,9 +67,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void checkLogin() {
-        name = DiskCache.getInstance(this).get(UserRepository.KEY_USER_NAME);
-        String token = DiskCache.getInstance(this).get(UserRepository.KEY_TOKEN);
-        String refreshToken = DiskCache.getInstance(this).get(UserRepository.KEY_REFRESH_TOKEN);
+        name = UserRepository.getUserName();
+        String token = UserRepository.getToken();
+        String refreshToken = UserRepository.getRefreshToken();
         if (TextUtils.isEmpty(token)) {
             isLogin = false;
             viewDataBinding.tvUser.setText("未登录");
@@ -131,7 +129,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onClickExit(View view) {
-        Router.pop(this);
+        App.exit(this);
     }
 
     public void onClickEnter(View view) {

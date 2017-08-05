@@ -1,7 +1,9 @@
 package com.dengciping.ydroid.airconditioningsystem.common;
 
+import android.os.Bundle;
 import android.view.MotionEvent;
 
+import com.dengciping.ydroid.airconditioningsystem.App;
 import com.dengciping.ydroid.airconditioningsystem.utils.UI;
 
 import cn.droidlover.xdroidmvp.mvp.XActivity;
@@ -17,7 +19,9 @@ public abstract class BaseActivity extends XActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        if (App.isExit) {
+            finish();
+        }
         UI.hideSystemUI(this);
     }
 
@@ -34,4 +38,20 @@ public abstract class BaseActivity extends XActivity {
         UI.hideSystemUI(this);
         return super.onGenericMotionEvent(event);
     }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
+    }
+
 }

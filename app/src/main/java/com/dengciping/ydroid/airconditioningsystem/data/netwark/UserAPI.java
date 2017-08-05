@@ -14,7 +14,7 @@ import retrofit2.http.POST;
  * @author caixudong
  * @date 2016/5/20
  */
-public interface UserApi {
+public interface UserAPI {
 
     @FormUrlEncoded
     @POST("/core/connect/token")

@@ -1,12 +1,18 @@
 package com.dengciping.ydroid.airconditioningsystem;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+
+import com.dengciping.ydroid.airconditioningsystem.data.netwark.HeaderRequestHandler;
+
+import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.net.NetProvider;
 import cn.droidlover.xdroidmvp.net.RequestHandler;
 import cn.droidlover.xdroidmvp.net.XApi;
+import io.reactivex.Observable;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,6 +25,8 @@ import okhttp3.OkHttpClient;
  */
 public class App extends Application {
     private static Context context;
+
+    public static boolean isExit = false;
 
     @Override
     public void onCreate() {
@@ -45,7 +53,7 @@ public class App extends Application {
 
             @Override
             public RequestHandler configHandler() {
-                return null;
+                return new HeaderRequestHandler();
             }
 
             @Override
@@ -72,5 +80,22 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static void exit(Activity activity) {
+        isExit = true;
+        activity.finish();
+        Observable.timer(1, TimeUnit.SECONDS).subscribe(l -> {
+            isExit = false;
+            kill();
+        });
+    }
+
+    /**
+     * 杀死应用
+     */
+    public static void kill() {
+        //结束进程之前可以把你程序的注销或者退出代码放在这段代码之前
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
