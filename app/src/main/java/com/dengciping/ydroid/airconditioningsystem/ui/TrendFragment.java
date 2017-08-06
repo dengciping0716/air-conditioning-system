@@ -1,15 +1,17 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.dengciping.ydroid.airconditioningsystem.R;
-import com.dengciping.ydroid.airconditioningsystem.common.BaseFragment;
+
+import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 
 /**
  * 一期、二期 趋势界面
  */
-public class TrendFragment extends BaseFragment {
+public class TrendFragment extends XLazyFragment<ViewDataBinding, TrendPresent> {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -35,7 +37,17 @@ public class TrendFragment extends BaseFragment {
     }
 
     @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.fragment_trend;
+    }
+
+    @Override
+    public TrendPresent newP() {
+        return new TrendPresent();
     }
 }

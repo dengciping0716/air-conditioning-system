@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
-import com.dengciping.ydroid.airconditioningsystem.common.BaseFragment;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentPreviewBinding;
 
-import cn.droidlover.xdroidmvp.mvp.IPresent;
+import java.util.List;
+
+import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 
 /**
  * 一期、二期 主界面
  */
-public class PreviewFragment extends BaseFragment<FragmentPreviewBinding, IPresent> {
+public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, PreviewPresent> {
     private static final String ARG_TYPE = "param1";
     private int type;
 
@@ -38,8 +40,20 @@ public class PreviewFragment extends BaseFragment<FragmentPreviewBinding, IPrese
     }
 
     @Override
+    protected void onResumeLazy() {
+        super.onResumeLazy();
+
+        getP().loadData(this.type);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.fragment_preview;
+    }
+
+    @Override
+    public PreviewPresent newP() {
+        return new PreviewPresent();
     }
 
     @Override
@@ -54,5 +68,13 @@ public class PreviewFragment extends BaseFragment<FragmentPreviewBinding, IPrese
 
         LinearLayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rvContent.setLayoutManager(layout);
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    public void setData(List<AirData> data) {
     }
 }
