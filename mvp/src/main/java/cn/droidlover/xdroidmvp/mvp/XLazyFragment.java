@@ -1,5 +1,7 @@
 package cn.droidlover.xdroidmvp.mvp;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,11 +14,12 @@ import cn.droidlover.xdroidmvp.event.BusProvider;
  * Created by wanglei on 2017/1/26.
  */
 
-public abstract class XLazyFragment<P extends IPresent>
+public abstract class XLazyFragment<B extends ViewDataBinding, P extends IPresent>
         extends LazyFragment implements IView<P> {
 
     private VDelegate vDelegate;
     private P p;
+    protected B binding;
 
     private RxPermissions rxPermissions;
 
@@ -24,6 +27,8 @@ public abstract class XLazyFragment<P extends IPresent>
     protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         if (getLayoutId() > 0) {
+
+
             setContentView(getLayoutId());
             bindUI(getRealRootView());
         }
@@ -36,6 +41,7 @@ public abstract class XLazyFragment<P extends IPresent>
 
     @Override
     public void bindUI(View rootView) {
+        binding = DataBindingUtil.bind(rootView);
     }
 
     @Override

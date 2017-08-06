@@ -4,53 +4,32 @@ package com.dengciping.ydroid.airconditioningsystem.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.databinding.DataBindingUtil;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import com.dengciping.ydroid.airconditioningsystem.Bean.UserBean;
 import com.dengciping.ydroid.airconditioningsystem.Config;
 import com.dengciping.ydroid.airconditioningsystem.R;
+import com.dengciping.ydroid.airconditioningsystem.common.BaseDialogFragment;
 import com.dengciping.ydroid.airconditioningsystem.data.netwark.UserRepository;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentLoginBinding;
-import com.dengciping.ydroid.airconditioningsystem.utils.UI;
 import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 
 import cn.droidlover.xdroidmvp.event.BusProvider;
+import cn.droidlover.xdroidmvp.mvp.IPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.utils.DisplayUtil;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class LoginFragment extends RxAppCompatDialogFragment {
-
-    private FragmentLoginBinding loginBinding;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+public class LoginFragment extends BaseDialogFragment<FragmentLoginBinding, IPresent> {
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -61,11 +40,22 @@ public class LoginFragment extends RxAppCompatDialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public int getLayoutId() {
+        return R.layout.fragment_login;
+    }
 
-        loginBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
+    @Override
+    public void bindUI(View rootView) {
+        super.bindUI(rootView);
+        binding.email.setText(Config.userName);
+        binding.password.setText(Config.password);
+    }
 
-        loginBinding.password.setOnEditorActionListener((textView, id, keyEvent) -> {
+    @Override
+    public void bindEvent() {
+        super.bindEvent();
+
+        binding.password.setOnEditorActionListener((textView, id, keyEvent) -> {
                     if (id == R.id.login || id == EditorInfo.IME_NULL) {
                         attemptLogin();
                         return true;
@@ -73,14 +63,7 @@ public class LoginFragment extends RxAppCompatDialogFragment {
                     return false;
                 }
         );
-
-        loginBinding.email.setText(Config.userName);
-
-        loginBinding.password.setText(Config.password);
-
-        loginBinding.emailSignInButton.setOnClickListener((view) -> attemptLogin());
-
-        return loginBinding.getRoot();
+        binding.emailSignInButton.setOnClickListener((view) -> attemptLogin());
     }
 
     /**
@@ -90,31 +73,31 @@ public class LoginFragment extends RxAppCompatDialogFragment {
      */
     private void attemptLogin() {
         // Reset errors.
-        loginBinding.email.setError(null);
-        loginBinding.password.setError(null);
+        binding.email.setError(null);
+        binding.password.setError(null);
 
         // Store values at the time of the login attempt.
-        String userName = loginBinding.email.getText().toString();
-        String password = loginBinding.password.getText().toString();
+        String userName = binding.email.getText().toString();
+        String password = binding.password.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            loginBinding.password.setError(getString(R.string.error_invalid_password));
-            focusView = loginBinding.password;
+            binding.password.setError(getString(R.string.error_invalid_password));
+            focusView = binding.password;
             cancel = true;
         }
 
         // Check for a valid userName address.
         if (TextUtils.isEmpty(userName)) {
-            loginBinding.email.setError(getString(R.string.error_field_required));
-            focusView = loginBinding.email;
+            binding.email.setError(getString(R.string.error_field_required));
+            focusView = binding.email;
             cancel = true;
         } else if (!isEmailValid(userName)) {
-            loginBinding.email.setError(getString(R.string.error_invalid_email));
-            focusView = loginBinding.email;
+            binding.email.setError(getString(R.string.error_invalid_email));
+            focusView = binding.email;
             cancel = true;
         }
 
@@ -137,7 +120,7 @@ public class LoginFragment extends RxAppCompatDialogFragment {
                 if (error.getType() == NetError.AuthError
                         || NetError.BusinessError == error.getType()) {
 
-                    loginBinding.password.setError(error.getMessage());
+                    binding.password.setError(error.getMessage());
 
                 } else {
 
@@ -161,12 +144,10 @@ public class LoginFragment extends RxAppCompatDialogFragment {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return Config.userName.equals(email);
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -181,28 +162,28 @@ public class LoginFragment extends RxAppCompatDialogFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            loginBinding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
-            loginBinding.loginForm.animate().setDuration(shortAnimTime).alpha(
+            binding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
+            binding.loginForm.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    loginBinding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
+                    binding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
-            loginBinding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-            loginBinding.loginProgress.animate().setDuration(shortAnimTime).alpha(
+            binding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+            binding.loginProgress.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    loginBinding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+                    binding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            loginBinding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-            loginBinding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
+            binding.loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+            binding.loginForm.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

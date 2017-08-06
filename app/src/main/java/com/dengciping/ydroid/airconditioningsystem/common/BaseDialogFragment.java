@@ -4,15 +4,15 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import cn.droidlover.xdroidmvp.mvp.IPresent;
-import cn.droidlover.xdroidmvp.mvp.XFragment;
+import cn.droidlover.xdroidmvp.mvp.XDialogFragment;
 
 /**
  * $desc$
  *
  * @author DengCiPing
- * @date 2017/8/6 上午9:56
+ * @date 2017/8/6 下午7:02
  */
-public abstract class BaseFragment<B extends ViewDataBinding, P extends IPresent> extends XFragment<B, P> {
+public abstract class BaseDialogFragment<B extends ViewDataBinding, P extends IPresent> extends XDialogFragment<B, P> {
     @Override
     public void initData(Bundle savedInstanceState) {
 

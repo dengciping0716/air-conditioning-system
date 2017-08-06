@@ -1,7 +1,5 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,26 +15,28 @@ import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.event.BusProvider;
 import cn.droidlover.xdroidmvp.kit.Kits;
+import cn.droidlover.xdroidmvp.mvp.IPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.router.Router;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class MainActivity extends BaseActivity {
-
-    private ActivityMainBinding viewDataBinding;
+public class MainActivity extends BaseActivity<ActivityMainBinding, IPresent> {
 
     boolean isLogin = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        viewDataBinding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
+
+    @Override
+    public void bindUI(View rootView) {
+        super.bindUI(rootView);
+        binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
+    }
+
 
     @Override
     protected void onStart() {
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
                 .compose(this.bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    viewDataBinding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
+                    binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
                 });
 
 
@@ -71,37 +71,16 @@ public class MainActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(token)) {
             isLogin = false;
-            viewDataBinding.tvUser.setText("未登录");
+            binding.tvUser.setText("未登录");
             if (!TextUtils.isEmpty(refreshToken)) {
                 refreshToken(refreshToken);
             }
         } else {
             isLogin = true;
             name = TextUtils.isEmpty(name) ? "未登录" : name;
-            viewDataBinding.tvUser.setText(name);
+            binding.tvUser.setText(name);
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void initData(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    public Object newP() {
-        return null;
-    }
-
 
     public void refreshToken(String token) {
         new UserRepository()
@@ -111,7 +90,7 @@ public class MainActivity extends BaseActivity {
                 .subscribe(new ApiSubscriber<UserBean>() {
                     @Override
                     protected void onFail(NetError error) {
-                        Snackbar.make(viewDataBinding.btnEnter, error.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.btnEnter, error.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -127,8 +106,8 @@ public class MainActivity extends BaseActivity {
         String name = UserRepository.getUserName();
         name = TextUtils.isEmpty(name) ? "未登录" : name;
 
-        viewDataBinding.tvUser.setText(name);
-        Snackbar.make(viewDataBinding.btnEnter, "欢迎进入系统~~~！", Snackbar.LENGTH_SHORT).show();
+        binding.tvUser.setText(name);
+        Snackbar.make(binding.btnEnter, "欢迎进入系统~~~！", Snackbar.LENGTH_SHORT).show();
     }
 
     public void onClickExit(View view) {

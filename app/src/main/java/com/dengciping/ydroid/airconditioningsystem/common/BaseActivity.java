@@ -1,5 +1,6 @@
 package com.dengciping.ydroid.airconditioningsystem.common;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
@@ -15,7 +16,7 @@ import cn.droidlover.xdroidmvp.mvp.XActivity;
  * @author DengCiPing
  * @date 2017/8/2 下午2:42
  */
-public abstract class BaseActivity<T extends IPresent> extends XActivity<T> {
+public abstract class BaseActivity<B extends ViewDataBinding, T extends IPresent> extends XActivity<B, T> {
 
     @Override
     protected void onResume() {
@@ -43,11 +44,6 @@ public abstract class BaseActivity<T extends IPresent> extends XActivity<T> {
     @Override
     public void initData(Bundle savedInstanceState) {
 
-    }
-
-    @Override
-    public int getLayoutId() {
-        return 0;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 
 import com.dengciping.ydroid.airconditioningsystem.App;
@@ -12,24 +10,24 @@ import com.dengciping.ydroid.airconditioningsystem.databinding.ActivitySecondBin
 import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.kit.Kits;
-import cn.droidlover.xdroidmvp.router.Router;
+import cn.droidlover.xdroidmvp.mvp.IPresent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class SecondActivity extends BaseActivity {
-
-    private ActivitySecondBinding binding;
+public class SecondActivity extends BaseActivity<ActivitySecondBinding, IPresent> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getLayoutId() {
+        return R.layout.activity_second;
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_second);
+    @Override
+    public void bindUI(View rootView) {
+        super.bindUI(rootView);
 
         binding.tvUser.setText("普通权限");
 
         binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
-
 
     }
 
@@ -44,11 +42,6 @@ public class SecondActivity extends BaseActivity {
                     binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
                 });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     public void onClickExit(View view) {

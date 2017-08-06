@@ -2,6 +2,8 @@ package cn.droidlover.xdroidmvp.mvp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,30 +20,29 @@ import cn.droidlover.xdroidmvp.event.BusProvider;
  * Created by wanglei on 2016/12/29.
  */
 
-public abstract class XFragment<P extends IPresent> extends RxFragment implements IView<P> {
+public abstract class XFragment<B extends ViewDataBinding, P extends IPresent> extends RxFragment implements IView<P> {
 
     private VDelegate vDelegate;
     private P p;
+    protected B binding;
+
     protected Activity context;
     private View rootView;
-    protected LayoutInflater layoutInflater;
 
     private RxPermissions rxPermissions;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layoutInflater = inflater;
-        if (rootView == null && getLayoutId() > 0) {
-            rootView = inflater.inflate(getLayoutId(), null);
+        if (getLayoutId() > 0) {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+            bindUI(rootView);
         } else {
             ViewGroup viewGroup = (ViewGroup) rootView.getParent();
             if (viewGroup != null) {
                 viewGroup.removeView(rootView);
             }
         }
-
         return rootView;
     }
 
@@ -56,9 +57,9 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
         initData(savedInstanceState);
     }
 
-    @Deprecated
     @Override
     public void bindUI(View rootView) {
+        binding = DataBindingUtil.bind(rootView);
     }
 
     protected VDelegate getvDelegate() {

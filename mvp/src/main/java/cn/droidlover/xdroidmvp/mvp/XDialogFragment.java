@@ -1,15 +1,17 @@
 package cn.droidlover.xdroidmvp.mvp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 
 import cn.droidlover.xdroidmvp.XDroidConf;
 import cn.droidlover.xdroidmvp.event.BusProvider;
@@ -18,34 +20,46 @@ import cn.droidlover.xdroidmvp.event.BusProvider;
  * Created by wanglei on 2016/12/29.
  */
 
-public abstract class XActivity<B extends ViewDataBinding, P extends IPresent> extends RxAppCompatActivity implements IView<P> {
+public abstract class XDialogFragment<B extends ViewDataBinding, P extends IPresent> extends RxAppCompatDialogFragment implements IView<P> {
 
     private VDelegate vDelegate;
     private P p;
+    protected B binding;
+
     protected Activity context;
+    private View rootView;
 
     private RxPermissions rxPermissions;
 
-    protected B binding;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (getLayoutId() > 0) {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+            bindUI(rootView);
+        } else {
+            ViewGroup viewGroup = (ViewGroup) rootView.getParent();
+            if (viewGroup != null) {
+                viewGroup.removeView(rootView);
+            }
+        }
+        return rootView;
+    }
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = this;
-
-        if (getLayoutId() > 0) {
-            bindUI(null);
-            bindEvent();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (useEventBus()) {
+            BusProvider.getBus().register(this);
         }
-
+        bindEvent();
         initData(savedInstanceState);
-
     }
 
     @Override
     public void bindUI(View rootView) {
-        binding = DataBindingUtil.setContentView(this, getLayoutId());
+        binding = DataBindingUtil.bind(rootView);
     }
 
     protected VDelegate getvDelegate() {
@@ -66,25 +80,17 @@ public abstract class XActivity<B extends ViewDataBinding, P extends IPresent> e
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (useEventBus()) {
-            BusProvider.getBus().register(this);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity) {
+            this.context = (Activity) context;
         }
     }
 
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        getvDelegate().resume();
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        getvDelegate().pause();
+    public void onDetach() {
+        super.onDetach();
+        context = null;
     }
 
     @Override
@@ -92,9 +98,10 @@ public abstract class XActivity<B extends ViewDataBinding, P extends IPresent> e
         return false;
     }
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (useEventBus()) {
             BusProvider.getBus().unregister(this);
         }
@@ -102,20 +109,13 @@ public abstract class XActivity<B extends ViewDataBinding, P extends IPresent> e
             getP().detachV();
         }
         getvDelegate().destory();
+
         p = null;
         vDelegate = null;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (getOptionsMenuId() > 0) {
-            getMenuInflater().inflate(getOptionsMenuId(), menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
     protected RxPermissions getRxPermissions() {
-        rxPermissions = new RxPermissions(this);
+        rxPermissions = new RxPermissions(getActivity());
         rxPermissions.setLogging(XDroidConf.DEV);
         return rxPermissions;
     }

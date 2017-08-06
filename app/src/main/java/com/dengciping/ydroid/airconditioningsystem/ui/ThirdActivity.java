@@ -1,7 +1,5 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
-import android.os.Bundle;
-
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.common.BaseActivity;
 
@@ -11,8 +9,7 @@ import com.dengciping.ydroid.airconditioningsystem.common.BaseActivity;
 public class ThirdActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_third);
+    public int getLayoutId() {
+        return R.layout.activity_third;
     }
 }
