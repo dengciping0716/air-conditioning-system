@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import com.dengciping.ydroid.airconditioningsystem.App;
 import com.dengciping.ydroid.airconditioningsystem.utils.UI;
 
+import cn.droidlover.xdroidmvp.mvp.IPresent;
 import cn.droidlover.xdroidmvp.mvp.XActivity;
 
 /**
@@ -14,7 +15,7 @@ import cn.droidlover.xdroidmvp.mvp.XActivity;
  * @author DengCiPing
  * @date 2017/8/2 下午2:42
  */
-public abstract class BaseActivity extends XActivity {
+public abstract class BaseActivity<T extends IPresent> extends XActivity<T> {
 
     @Override
     protected void onResume() {
@@ -50,7 +51,7 @@ public abstract class BaseActivity extends XActivity {
     }
 
     @Override
-    public Object newP() {
+    public T newP() {
         return null;
     }
 

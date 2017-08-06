@@ -22,13 +22,15 @@ public class UserRepository {
     public static final String KEY_REFRESH_TOKEN = "refresh_token";
     public static final String KEY_USER_NAME = "user_name";
 
-    public static final String getToken(){
-       return DiskCache.getInstance(App.getContext()).get(UserRepository.KEY_TOKEN);
+    public static final String getToken() {
+        return DiskCache.getInstance(App.getContext()).get(UserRepository.KEY_TOKEN);
     }
-    public static final String getRefreshToken(){
+
+    public static final String getRefreshToken() {
         return DiskCache.getInstance(App.getContext()).get(UserRepository.KEY_REFRESH_TOKEN);
     }
-    public static final String getUserName(){
+
+    public static final String getUserName() {
         return DiskCache.getInstance(App.getContext()).get(UserRepository.KEY_USER_NAME);
     }
 
