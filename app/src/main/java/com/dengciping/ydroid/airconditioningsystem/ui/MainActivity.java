@@ -28,7 +28,6 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding viewDataBinding;
 
     boolean isLogin = false;
-    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class MainActivity extends BaseActivity {
         BusProvider.getBus().toFlowable(UserBean.class)
                 .compose(this.bindToLifecycle())
                 .subscribe(userBean -> {
-                    name = userBean.getUserName();
                     onLogin();
                 });
     }
@@ -67,9 +65,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void checkLogin() {
-        name = UserRepository.getUserName();
+        String name = UserRepository.getUserName();
         String token = UserRepository.getToken();
         String refreshToken = UserRepository.getRefreshToken();
+
         if (TextUtils.isEmpty(token)) {
             isLogin = false;
             viewDataBinding.tvUser.setText("未登录");
@@ -105,7 +104,8 @@ public class MainActivity extends BaseActivity {
 
 
     public void refreshToken(String token) {
-        new UserRepository().refreshToken(token)
+        new UserRepository()
+                .refreshToken(token)
                 .retry(3)
                 .compose(this.bindToLifecycle())
                 .subscribe(new ApiSubscriber<UserBean>() {
@@ -123,7 +123,10 @@ public class MainActivity extends BaseActivity {
 
     private void onLogin() {
         isLogin = true;
+
+        String name = UserRepository.getUserName();
         name = TextUtils.isEmpty(name) ? "未登录" : name;
+
         viewDataBinding.tvUser.setText(name);
         Snackbar.make(viewDataBinding.btnEnter, "欢迎进入系统~~~！", Snackbar.LENGTH_SHORT).show();
     }
