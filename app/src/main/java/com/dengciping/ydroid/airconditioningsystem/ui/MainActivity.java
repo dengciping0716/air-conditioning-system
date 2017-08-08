@@ -37,7 +37,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, IPresent> {
         binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();

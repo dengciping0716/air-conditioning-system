@@ -1,28 +1,26 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
 
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dengciping.ydroid.airconditioningsystem.R;
+import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentTrendBinding;
 
 import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 
 /**
  * 一期、二期 趋势界面
  */
-public class TrendFragment extends XLazyFragment<ViewDataBinding, TrendPresent> {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class TrendFragment extends XLazyFragment<FragmentTrendBinding, TrendPresent> {
+    private static final String ARG_TYPE = "param1";
+    private int type;
 
-    private String mParam1;
-    private String mParam2;
 
-    public static TrendFragment newInstance(String param1, String param2) {
+    public static TrendFragment newInstance(int param1) {
         TrendFragment fragment = new TrendFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_TYPE, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,8 +29,7 @@ public class TrendFragment extends XLazyFragment<ViewDataBinding, TrendPresent> 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            type = getArguments().getInt(ARG_TYPE);
         }
     }
 
@@ -49,5 +46,15 @@ public class TrendFragment extends XLazyFragment<ViewDataBinding, TrendPresent> 
     @Override
     public TrendPresent newP() {
         return new TrendPresent();
+    }
+
+    @Override
+    public void bindUI(View rootView) {
+        super.bindUI(rootView);
+        if (type == 0) {
+            binding.tvTitle.setText("一期趋势");
+        } else {
+            binding.tvTitle.setText("二期趋势");
+        }
     }
 }

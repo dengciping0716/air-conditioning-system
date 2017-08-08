@@ -26,4 +26,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="preview_kt_desc">空调：%1$s</string>
+    <string name="preview_temp_desc">温度：%1$.1f ℃</string>
+    <string name="preview_moisture_desc">湿度：%1$.1f</string>
+
 </resources>
