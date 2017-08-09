@@ -1,10 +1,11 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import cn.droidlover.xdroidmvp.base.SimpleDataBindingRecAdapter;
 import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
+import cn.droidlover.xdroidmvp.router.Router;
+import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
 /**
  * 一期、二期 主界面
@@ -72,11 +75,8 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
         }
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
-        LinearLayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        layout.setStackFromEnd(true);
-//        new LinearSnapHelper().attachToRecyclerView(binding.rvContent);
-
         binding.rvContent.setLayoutManager(gridLayoutManager);
+
         adapter = new SimpleDataBindingRecAdapter<AirData, ItemPreviewBinding>(getContext()) {
             @Override
             protected int getLayoutIdForPosition(int position) {
@@ -94,8 +94,26 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
             }
         };
 
+        adapter.setRecItemClick(new RecyclerItemCallback<AirData, ItemPreviewBinding>() {
+            @Override
+            public void onItemClick(int position, AirData model, int tag, ItemPreviewBinding holder) {
+                Router.newIntent(getActivity()).to(ThirdActivity.class).launch();
+            }
+        });
         binding.rvContent.setAdapter(adapter);
         binding.rvContent.setHasFixedSize(true);
+        binding.rvContent.setItemAnimator(new DefaultItemAnimator());
+
+        binding.rvContent.addItemDecoration(new RecyclerView.ItemDecoration() {
+
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.left = 10;
+                outRect.top = 10;
+            }
+        });
+
+        binding.rvContent.setItemViewCacheSize(4);
     }
 
     @Override
@@ -104,6 +122,7 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
     }
 
     public void setData(List<AirData> data) {
+        adapter.clearData();
         adapter.addData(data);
     }
 }
