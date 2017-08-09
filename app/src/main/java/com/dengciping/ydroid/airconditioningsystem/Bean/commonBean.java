@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.droidlover.xdroidmvp.base.databinding.ItemModel;
+
 /**
  * $desc$
  *
@@ -16,7 +18,7 @@ import java.util.Map;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class commonBean {
+public class commonBean implements ItemModel {
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -31,4 +33,8 @@ public class commonBean {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int getItemViewLayoutId() {
+        return 0;
+    }
 }

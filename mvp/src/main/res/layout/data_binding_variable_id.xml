@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="cn.droidlover.xdroidmvp.base.databinding.ItemModel" />
+
+        <import type="cn.droidlover.xdroidmvp.base.databinding.OnClickPresenter" />
+
+        <import type="cn.droidlover.xdroidmvp.base.databinding.OnLongClickPresenter" />
+
+        <variable
+            name="viewModel"
+            type="ItemModel" />
+
+        <variable
+            name="onClickPresenter"
+            type="OnClickPresenter" />
+
+        <variable
+            name="onLongClickPresenter"
+            type="OnLongClickPresenter" />
+    </data>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+</layout>

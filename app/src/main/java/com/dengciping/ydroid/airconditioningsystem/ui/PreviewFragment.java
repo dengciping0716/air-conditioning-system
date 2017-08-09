@@ -11,14 +11,12 @@ import android.view.View;
 import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentPreviewBinding;
-import com.dengciping.ydroid.airconditioningsystem.databinding.ItemPreviewBinding;
 
 import java.util.List;
 
-import cn.droidlover.xdroidmvp.base.SimpleDataBindingRecAdapter;
+import cn.droidlover.xdroidmvp.base.databinding.SimpleRecAdapter;
 import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 import cn.droidlover.xdroidmvp.router.Router;
-import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
 /**
  * 一期、二期 主界面
@@ -26,7 +24,7 @@ import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, PreviewPresent> {
     private static final String ARG_TYPE = "param1";
     private int type;
-    private SimpleDataBindingRecAdapter adapter;
+    private SimpleRecAdapter adapter;
 
     /**
      * @return A new instance of fragment PreviewFragment.
@@ -76,30 +74,16 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         binding.rvContent.setLayoutManager(gridLayoutManager);
-
-        adapter = new SimpleDataBindingRecAdapter<AirData, ItemPreviewBinding>(getContext()) {
+        adapter = new SimpleRecAdapter<AirData>(getContext()) {
             @Override
             protected int getLayoutIdForPosition(int position) {
                 return R.layout.item_preview;
             }
-
-            @Override
-            protected void onBind(ItemPreviewBinding binding, AirData data) {
-                String title = getString(R.string.preview_kt_desc);
-                binding.tvTitle.setText(String.format(title, data.name));
-                String temp = getString(R.string.preview_temp_desc);
-                binding.tvTemp.setText(String.format(temp, data.temp));
-                String humidity = getString(R.string.preview_moisture_desc);
-                binding.tvMoisture.setText(String.format(humidity, data.humidity) + "%");
-            }
         };
-
-        adapter.setRecItemClick(new RecyclerItemCallback<AirData, ItemPreviewBinding>() {
-            @Override
-            public void onItemClick(int position, AirData model, int tag, ItemPreviewBinding holder) {
-                Router.newIntent(getActivity()).to(ThirdActivity.class).launch();
-            }
+        adapter.setOnClickPresenter((v, item) -> {
+            Router.newIntent(getActivity()).to(ThirdActivity.class).launch();
         });
+
         binding.rvContent.setAdapter(adapter);
         binding.rvContent.setHasFixedSize(true);
         binding.rvContent.setItemAnimator(new DefaultItemAnimator());

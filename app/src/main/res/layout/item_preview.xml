@@ -3,6 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.dengciping.ydroid.airconditioningsystem.Bean.AirData" />
+
+        <import type="cn.droidlover.xdroidmvp.base.databinding.OnClickPresenter" />
+
+        <variable
+            name="viewModel"
+            type="AirData" />
+
+        <variable
+            name="onClickPresenter"
+            type="OnClickPresenter" />
+
+    </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="120dp"
@@ -17,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:onClick="@{(v)->onClickPresenter.onClick(v,viewModel)}"
             android:orientation="vertical"
             android:padding="15dp"
             android:paddingLeft="10dp">
@@ -27,18 +43,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
+                android:text="@{@string/preview_kt_desc(viewModel.name)}"
                 tools:text="空调：1" />
 
             <TextView
                 android:id="@+id/tv_temp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{@string/preview_temp_desc(viewModel.temp)}"
                 tools:text="温度：10℃" />
 
             <TextView
                 android:id="@+id/tv_moisture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{@string/preview_moisture_desc(viewModel.humidity)}"
                 tools:text="湿度度：50%" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
