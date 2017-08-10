@@ -2,11 +2,18 @@ package com.dengciping.ydroid.airconditioningsystem.ui;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.view.View;
 
+import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentTrendBinding;
 
+import java.util.List;
+
+import cn.droidlover.xdroidmvp.base.databinding.SimpleRecAdapter;
 import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 
 /**
@@ -15,6 +22,7 @@ import cn.droidlover.xdroidmvp.mvp.XLazyFragment;
 public class TrendFragment extends XLazyFragment<FragmentTrendBinding, TrendPresent> {
     private static final String ARG_TYPE = "param1";
     private int type;
+    private SimpleRecAdapter<AirData> adapter;
 
 
     public static TrendFragment newInstance(int param1) {
@@ -35,7 +43,7 @@ public class TrendFragment extends XLazyFragment<FragmentTrendBinding, TrendPres
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        getP().loadData(type);
     }
 
     @Override
@@ -56,5 +64,23 @@ public class TrendFragment extends XLazyFragment<FragmentTrendBinding, TrendPres
         } else {
             binding.tvTitle.setText("二期趋势");
         }
+
+        binding.rvContent.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        binding.rvContent.setHasFixedSize(true);
+        binding.rvContent.setItemAnimator(new DefaultItemAnimator());
+
+        LinearSnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(binding.rvContent);
+
+        adapter = new TrendAdapter(getActivity());
+        binding.rvContent.setAdapter(adapter);
+
     }
+
+    public void setData(List<AirData> airDatas) {
+        adapter.clearData();
+        adapter.addData(airDatas);
+    }
+
+
 }

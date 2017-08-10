@@ -1,6 +1,7 @@
 package cn.droidlover.xdroidmvp.base.databinding;
 
 import android.content.Context;
+import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -42,6 +43,8 @@ public abstract class SimpleRecAdapter<T extends ItemModel> extends RecyclerAdap
             holder.dataBinding.setVariable(BR.onLongClickPresenter, mOnClickPresenter);
         }
 
+        onBind(holder.getBinding(), item);
+
         holder.dataBinding.executePendingBindings();
     }
 
@@ -74,6 +77,9 @@ public abstract class SimpleRecAdapter<T extends ItemModel> extends RecyclerAdap
 
     public void setOnLongClickPresenter(OnLongClickPresenter<T> onLongClickPresenter) {
         mOnLongClickPresenter = onLongClickPresenter;
+    }
+
+    public void onBind(ViewDataBinding binding, T data) {
     }
 
 }

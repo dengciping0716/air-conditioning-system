@@ -38,9 +38,8 @@ public class SecondActivity extends BaseActivity<ActivitySecondBinding, IPresent
 
         binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
 
-
         binding.vpContent.setAdapter(new XFragmentAdapter(getSupportFragmentManager(), Arrays.asList(mTabContents), null));
-
+        binding.vpContent.setOffscreenPageLimit(3);
     }
 
     @Override

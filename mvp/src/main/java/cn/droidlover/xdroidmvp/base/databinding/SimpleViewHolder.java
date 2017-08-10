@@ -11,15 +11,15 @@ import android.view.View;
  * @author DengCiPing
  * @date 2017/8/7 下午9:36
  */
-public class SimpleViewHolder extends RecyclerView.ViewHolder {
-    public ViewDataBinding dataBinding;
+public class SimpleViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
+    public B dataBinding;
 
     public SimpleViewHolder(View view) {
         super(view);
         dataBinding = DataBindingUtil.bind(itemView);
     }
 
-    public ViewDataBinding getBinding() {
+    public B getBinding() {
         return dataBinding;
     }
 

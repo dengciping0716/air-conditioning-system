@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.dengciping.ydroid.airconditioningsystem.ui.TrendFragment">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
@@ -23,5 +24,11 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/hello_blank_fragment" />
 
-    </FrameLayout>
+        <cn.droidlover.xrecyclerview.XRecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp" />
+
+    </LinearLayout>
 </layout>

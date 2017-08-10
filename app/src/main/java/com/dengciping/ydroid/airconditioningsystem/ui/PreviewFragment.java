@@ -46,13 +46,6 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
     }
 
     @Override
-    protected void onResumeLazy() {
-        super.onResumeLazy();
-
-        getP().loadData(this.type);
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.fragment_preview;
     }
@@ -102,7 +95,7 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        getP().loadData(this.type);
     }
 
     public void setData(List<AirData> data) {
