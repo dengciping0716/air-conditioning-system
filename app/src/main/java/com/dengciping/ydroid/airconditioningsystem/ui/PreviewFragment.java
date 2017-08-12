@@ -59,12 +59,6 @@ public class PreviewFragment extends XLazyFragment<FragmentPreviewBinding, Previ
     public void bindUI(View rootView) {
         super.bindUI(rootView);
 
-        if (type == 0) {
-            binding.tvTitle.setText("一期预览界面");
-        } else {
-            binding.tvTitle.setText("二期预览界面");
-        }
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         binding.rvContent.setLayoutManager(gridLayoutManager);
         adapter = new SimpleRecAdapter<AirData>(getContext()) {

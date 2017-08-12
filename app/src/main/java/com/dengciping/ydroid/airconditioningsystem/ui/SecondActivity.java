@@ -18,11 +18,18 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SecondActivity extends BaseActivity<ActivitySecondBinding, IPresent> {
-    private Fragment[] mTabContents = {
+    private final Fragment[] mTabContents = {
             PreviewFragment.newInstance(0),
             PreviewFragment.newInstance(1),
             TrendFragment.newInstance(0),
             TrendFragment.newInstance(1),
+    };
+
+    private final String[] titles = {
+            "一期预览界面",
+            "二期预览界面",
+            "一期趋势",
+            "二期趋势",
     };
 
     @Override
@@ -38,8 +45,11 @@ public class SecondActivity extends BaseActivity<ActivitySecondBinding, IPresent
 
         binding.tvTime.setText(Kits.Date.getHm(System.currentTimeMillis()));
 
-        binding.vpContent.setAdapter(new XFragmentAdapter(getSupportFragmentManager(), Arrays.asList(mTabContents), null));
+        binding.vpContent.setAdapter(new XFragmentAdapter(getSupportFragmentManager(), Arrays.asList(mTabContents), titles));
         binding.vpContent.setOffscreenPageLimit(3);
+
+        binding.tabLayout.setupWithViewPager(binding.vpContent);
+
     }
 
     @Override

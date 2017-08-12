@@ -59,11 +59,6 @@ public class TrendFragment extends XLazyFragment<FragmentTrendBinding, TrendPres
     @Override
     public void bindUI(View rootView) {
         super.bindUI(rootView);
-        if (type == 0) {
-            binding.tvTitle.setText("一期趋势");
-        } else {
-            binding.tvTitle.setText("二期趋势");
-        }
 
         binding.rvContent.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         binding.rvContent.setHasFixedSize(true);
