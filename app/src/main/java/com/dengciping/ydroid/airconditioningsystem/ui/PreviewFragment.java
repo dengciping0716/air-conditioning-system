@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentPreviewBinding;
 

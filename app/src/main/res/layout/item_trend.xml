@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.dengciping.ydroid.airconditioningsystem.Bean.AirData" />
+        <import type="com.dengciping.ydroid.airconditioningsystem.bean.AirData" />
 
         <variable
             name="viewModel"

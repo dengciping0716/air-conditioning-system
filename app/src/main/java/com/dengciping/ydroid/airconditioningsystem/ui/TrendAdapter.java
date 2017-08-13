@@ -3,7 +3,7 @@ package com.dengciping.ydroid.airconditioningsystem.ui;
 import android.content.Context;
 import android.databinding.ViewDataBinding;
 
-import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.databinding.ItemTrendBinding;
 import com.github.mikephil.charting.charts.LineChart;

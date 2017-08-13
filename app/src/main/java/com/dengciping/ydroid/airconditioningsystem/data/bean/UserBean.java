@@ -1,4 +1,4 @@
-package com.dengciping.ydroid.airconditioningsystem.Bean;
+package com.dengciping.ydroid.airconditioningsystem.data.bean;
 
 import android.text.TextUtils;
 

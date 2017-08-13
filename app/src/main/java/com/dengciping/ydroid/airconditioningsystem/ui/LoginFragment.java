@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
-import com.dengciping.ydroid.airconditioningsystem.Bean.UserBean;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.UserBean;
 import com.dengciping.ydroid.airconditioningsystem.Config;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.common.BaseDialogFragment;

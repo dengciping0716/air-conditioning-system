@@ -1,7 +1,7 @@
 package com.dengciping.ydroid.airconditioningsystem.data.netwark;
 
 import com.dengciping.ydroid.airconditioningsystem.App;
-import com.dengciping.ydroid.airconditioningsystem.Bean.UserBean;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.UserBean;
 import com.dengciping.ydroid.airconditioningsystem.Config;
 
 import cn.droidlover.xdroidmvp.cache.DiskCache;

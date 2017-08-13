@@ -1,4 +1,4 @@
-package com.dengciping.ydroid.airconditioningsystem.Bean;
+package com.dengciping.ydroid.airconditioningsystem.data.bean;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
-public class AirData extends commonBean {
+public class AirData extends CommonBean {
 
     //温度
     @JsonProperty("name")

@@ -1,4 +1,4 @@
-package com.dengciping.ydroid.airconditioningsystem.Bean;
+package com.dengciping.ydroid.airconditioningsystem.data.bean;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -18,7 +18,7 @@ import cn.droidlover.xdroidmvp.base.databinding.ItemModel;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class commonBean implements ItemModel {
+public class CommonBean implements ItemModel {
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();

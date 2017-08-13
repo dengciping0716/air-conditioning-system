@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.dengciping.ydroid.airconditioningsystem.App;
-import com.dengciping.ydroid.airconditioningsystem.Bean.UserBean;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.UserBean;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.common.BaseActivity;
 import com.dengciping.ydroid.airconditioningsystem.data.netwark.UserRepository;

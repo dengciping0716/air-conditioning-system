@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.view.View;
 
-import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.AirData;
 import com.dengciping.ydroid.airconditioningsystem.R;
 import com.dengciping.ydroid.airconditioningsystem.databinding.FragmentTrendBinding;
 

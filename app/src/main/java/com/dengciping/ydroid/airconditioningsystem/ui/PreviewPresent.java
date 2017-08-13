@@ -1,6 +1,6 @@
 package com.dengciping.ydroid.airconditioningsystem.ui;
 
-import com.dengciping.ydroid.airconditioningsystem.Bean.AirData;
+import com.dengciping.ydroid.airconditioningsystem.data.bean.AirData;
 
 import java.util.ArrayList;
 import java.util.List;
