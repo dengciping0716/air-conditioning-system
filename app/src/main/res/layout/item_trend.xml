@@ -23,7 +23,7 @@
             android:text="@{@string/preview_kt_desc(viewModel.name)}"
             tools:text="空调：1" />
 
-        <com.github.mikephil.charting.charts.LineChart
+        <com.dengciping.ydroid.airconditioningsystem.customviews.AirChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="200dp"

@@ -1,13 +1,144 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+        <include
+            android:id="@+id/content_1"
+            layout="@layout/view_control_1"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintRight_toLeftOf="@+id/content_2"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </FrameLayout>
+        </include>
+
+        <include
+            android:id="@+id/content_2"
+            layout="@layout/view_control_2"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintRight_toLeftOf="@+id/content_3"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </include>
+
+        <include
+            android:id="@+id/content_3"
+            layout="@layout/view_control_3"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+            app:layout_constraintRight_toLeftOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+        </include>
+
+        <include
+            android:id="@+id/content_4"
+            layout="@layout/view_control_4"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="2dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toRightOf="@+id/content_3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+        </include>
+
+        <include
+            android:id="@+id/content_5"
+            layout="@layout/view_control_5"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="2dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toRightOf="@+id/content_4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+
+        </include>
+
+        <com.dengciping.ydroid.airconditioningsystem.customviews.AirChart
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintRight_toLeftOf="@+id/content_6"
+            android:layout_marginRight="2dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/content_1" />
+
+
+        <include
+            android:id="@+id/content_6"
+            layout="@layout/view_control_6"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/chart"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+            app:layout_constraintRight_toLeftOf="@+id/guideline2"
+            android:layout_marginRight="0dp" />
+
+        <include
+            android:id="@+id/content_7"
+            layout="@layout/view_control_7"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/content_6"
+            app:layout_constraintTop_toTopOf="@+id/chart"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginLeft="2dp" />
+
+        <include
+            android:id="@+id/content_8"
+            layout="@layout/view_control_8"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/content_7"
+            app:layout_constraintTop_toTopOf="@+id/chart"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginLeft="2dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+    </android.support.constraint.ConstraintLayout>
 </layout>
